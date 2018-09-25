@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static android.hardware.camera2.CameraMetadata.CONTROL_AF_MODE_AUTO;
-import static android.hardware.camera2.CameraMetadata.LENS_FACING_BACK;
+import static android.hardware.camera2.CameraMetadata.LENS_FACING_FRONT;
 
 /**
  * Implements QrCamera using Camera2 API
@@ -83,19 +83,19 @@ class QrCameraC2 implements QrCamera {
             for (String id : cameraIdList) {
                 CameraCharacteristics cameraCharacteristics = manager.getCameraCharacteristics(id);
                 Integer integer = cameraCharacteristics.get(CameraCharacteristics.LENS_FACING);
-                if (integer != null && integer == LENS_FACING_BACK) {
+                if (integer != null && integer == LENS_FACING_FRONT) {
                     cameraId = id;
 
                 }
             }
         } catch (CameraAccessException e) {
-            Log.w(TAG, "Error getting back camera.", e);
+            Log.w(TAG, "Error getting front camera.", e);
             throw new RuntimeException(e);
         }
 
 
         if (cameraId == null) {
-            throw new QrReader.Exception(QrReader.Exception.Reason.noBackCamera);
+            throw new QrReader.Exception(QrReader.Exception.Reason.noFrontCamera);
         }
 
         try {

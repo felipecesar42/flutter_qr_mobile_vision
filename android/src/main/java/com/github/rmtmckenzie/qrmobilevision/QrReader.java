@@ -119,7 +119,7 @@ class QrReader {
         enum Reason {
             noHardware,
             noPermissions,
-            noBackCamera
+            noFrontCamera
         }
     }
 }
